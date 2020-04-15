@@ -15,7 +15,7 @@ const Todos = db.define('todo', {
         type: Sequelize.STRING(100),
         allowNull: false
     },
-    comment: {
+    notes: {
         type: Sequelize.STRING(200),
         allowNull: true
         
@@ -28,7 +28,11 @@ const Todos = db.define('todo', {
     due: {
         type: Sequelize.DATE
     },
-    status: {
+    description: {
+        type: Sequelize.STRING(200),
+        allowNull:true
+    },
+    priority: {
         type: Sequelize.STRING(200),
         allowNull:true
     }

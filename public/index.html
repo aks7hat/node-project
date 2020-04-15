@@ -9,13 +9,28 @@
 </head>
 <body>
     <h1>Todo List Manager</h1>
+    <form method="post">
 
-    <input type="text" name="task" id="task">
-    <input type="checkbox" name="done" id="done">
+    <input type="text" name="task" id="task" placeholder="task name" autocomplete="off">
+    <br>
+    <input type="date" name="due" id="due">
+    <br>
+    
+    <input type="text" name="done" id="done" placeholder="task done..? true/false" autocomplete="off">
+    <br>
+   
+    <input type="text" name="description" id="description" placeholder="Enter the description" autocomplete="off">
+    <br>
+    <input type="text" name="notes" id="notes" placeholder="Enter the note" autocomplete="off">
+    <br>
+    <select name="priority">
+        
+        <option>High Priority</option>
+        <option selected>Medium Priority</option>
+        <option>Low Priority</option>
+    </select>
+    
     <button type="submit" id="submit">ADD</button>
-
-    <ul>
-
-    </ul>
+</form>
 </body>
 </html>

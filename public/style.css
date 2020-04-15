@@ -1,7 +1,29 @@
 * {
     font-family: Arial, Helvetica, sans-serif;
 }
+body{
+    background:cadetblue;
+}
 
 h1 {
+    text-align: center;
+}
+input , select{
+    width: 50%;
+    margin-top: 50px;
+    padding: 5px;
+    text-align: center;
+    margin-left: 300px;
+}
+
+span{
+    margin-left: 90px;
+}
+button{
+    margin-left: 47%;
+    margin-top: 50px;
+    padding: 3px;
+}
+option{
     text-align: center;
 }

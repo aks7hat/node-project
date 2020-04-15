@@ -1,16 +1,20 @@
 const { Router } = require('express')
 const { Todos } = require('../db')
-
+const bodyParser = require('body-parser')
 const route = Router()
+var urlencodedParser = bodyParser.urlencoded({extended:true});
 
 route.get('/', async (req, res) => {
   const todos = await Todos.findAll()
   res.send(todos)
+  // res.render("/.public/index.html")
 })
+
+
 
 route.get('/:id', async (req, res) => {
   if (isNaN(Number(req.params.id))) {
-    return res.status(400).send({
+    return res.status(400).send({   
       error: 'todo id must be an integer',
     })
   }
@@ -24,12 +28,23 @@ route.get('/:id', async (req, res) => {
   }
   res.send(todo)
 })
-route.get('/:comment', async(req,res)=>
+route.get('/:id/:notes' , async(req , res)=>
 {
-
+  if (isNaN(Number(req.params.id))) {
+    return res.status(400).send({   
+      error: 'todo id must be an integer',
+    })
+  }
+  else{
+    
+    var com = req.params.notes
+    res.send(com)
+  }
 })
 
+
 route.post('/', async (req, res) => {
+  
   if (typeof req.body.task !== 'string') {
     return res.status(400).send({ error: 'Task name not provided' })
   }
@@ -43,11 +58,18 @@ route.post('/', async (req, res) => {
       task: req.body.task,
       done: req.body.done,
       due: req.body.due,
-      comment:req.body.comment,
-      status:req.body.status,
+      notes:req.body.notes,
+      description:req.body.description,
+      priority:req.body.priority,
   })
 
   res.status(201).send({ success: 'New task added', data: newTodo })
+  
 })
+
+// route.post('/newTodo',function(req,res)
+// {
+  
+// })
 
 module.exports = route

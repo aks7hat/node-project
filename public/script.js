@@ -11,22 +11,22 @@ async function getTodos() {
   return todos
 }
 
-async function addNewTodoUrlEncoded(task, done, due) {
+async function addNewTodoUrlEncoded(task, done, due , notes , description , priority) {
   const resp = await fetch('/todos', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/x-www-form-urlencoded'
     },
-    body: `task=${task}&done=${done}&due=2020-04-05`
+    body: `task=${task}&done=${done}&due=${due}&notes=${notes}&status=${status}&description=${description}&priority=${priority}`
   })
 }
 
-async function addNewTodoJson(task, done) {
+async function addNewTodoJson(task, done , due , notes , description , priority) {
   const resp = await fetch('/todos', {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ task, done, due: '2020-04-05' ,comment})
+    body: JSON.stringify({ task, done, due ,notes,description,priority})
   })
 }
