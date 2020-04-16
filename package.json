@@ -33,6 +33,7 @@
     "nan": "^2.14.0",
     "needle": "^2.4.1",
     "negotiator": "^0.6.2",
+    "node-gyp": "^6.1.0",
     "nopt": "^4.0.3",
     "npm-bundled": "^1.1.1",
     "npm-normalize-package-bin": "^1.0.1",
