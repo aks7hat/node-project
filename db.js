@@ -53,7 +53,7 @@ module.exports = {
 }
 
 async function task(){
-    await db.sync({force:true})
+    await db.sync()
 
 }
  
