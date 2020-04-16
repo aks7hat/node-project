@@ -5,40 +5,56 @@ const db = new Sequelize({
     storage: __dirname + '/todos.db'
 })
 
+const Notes=db.define('note',{
+    id:{
+        type: Sequelize.INTEGER,
+        primaryKey: true
+    },
+    notes:{
+        type: Sequelize.STRING(50),
+        primaryKey: true        
+    }
+})
+
 const Todos = db.define('todo', {
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true,
         autoIncrement: true
     },
-    task: {
+    title: {
         type: Sequelize.STRING(100),
         allowNull: false
     },
-    notes: {
-        type: Sequelize.STRING(200),
+    description: {
+        type: Sequelize.STRING(100),
         allowNull: true
-        
     },
-    done: {
+    status: {
         type: Sequelize.BOOLEAN,
         allowNull: false,
-        defaultValue: false
+        defaultValue:false
     },
     due: {
-        type: Sequelize.DATE
-    },
-    description: {
-        type: Sequelize.STRING(200),
-        allowNull:true
+        type: Sequelize.DATEONLY,
+        allowNull: false,
+        defaultValue: new Date().setDate(new Date().getDate() + 1)
     },
     priority: {
-        type: Sequelize.STRING(200),
-        allowNull:true
+        type: Sequelize.DataTypes.ENUM("high","medium","low"),
+        allowNull: false,
+        defaultValue: "medium"
     }
    
 })
 
 module.exports = {
-    db, Todos
+    db, Todos,Notes
 }
+
+async function task(){
+    await db.sync({force:true})
+
+}
+ 
+task()

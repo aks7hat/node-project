@@ -1,20 +1,23 @@
 const { Router } = require('express')
-const { Todos } = require('../db')
-const bodyParser = require('body-parser')
+const { Todos,Notes } = require('../db')
+const { Op } = require('Sequelize')
+
 const route = Router()
-var urlencodedParser = bodyParser.urlencoded({extended:true});
 
 route.get('/', async (req, res) => {
-  const todos = await Todos.findAll()
+  const todos = await Todos.findAll({
+    order: [
+           ['status','ASC'],
+           ['due','ASC'],
+           ['priority','ASC']          
+    ]
+  })
   res.send(todos)
-  // res.render("/.public/index.html")
 })
-
-
 
 route.get('/:id', async (req, res) => {
   if (isNaN(Number(req.params.id))) {
-    return res.status(400).send({   
+    return res.status(400).send({
       error: 'todo id must be an integer',
     })
   }
@@ -28,26 +31,10 @@ route.get('/:id', async (req, res) => {
   }
   res.send(todo)
 })
-route.get('/:id/:notes' , async(req , res)=>
-{
-  if (isNaN(Number(req.params.id))) {
-    return res.status(400).send({   
-      error: 'todo id must be an integer',
-    })
-  }
-  else{
-    
-    var com = req.params.notes
-    res.send(com)
-  }
-})
-
 
 route.post('/', async (req, res) => {
   
-  if (typeof req.body.task !== 'string') {
-    return res.status(400).send({ error: 'Task name not provided' })
-  }
+  console.log(req.body.title)
   if (req.body.done === 'true') {
     req.body.done = true
   } else {
@@ -55,21 +42,52 @@ route.post('/', async (req, res) => {
   }
 
   const newTodo = await Todos.create({
-      task: req.body.task,
-      done: req.body.done,
-      due: req.body.due,
-      notes:req.body.notes,
-      description:req.body.description,
-      priority:req.body.priority,
+      title: req.body.title,
+      description: req.body.description,
+      status: req.body.status,
+      due:req.body.due,
+      priority:req.body.priority
   })
 
   res.status(201).send({ success: 'New task added', data: newTodo })
+})
+
+route.patch('/:id',async (req,res)=>{
+  if (isNaN(Number(req.params.id))) {
+    return res.status(400).send({
+      error: 'todo id must be an integer',
+    })
+  }
+  
+  const todo = await Todos.findByPk(req.params.id)
+  console.log(todo.priority)
+ todo.title=todo.title
+  todo.status= req.body.status
+  todo.priority= req.body.priority
+  todo.due= req.body.due
+  
+  await todo.save()
   
 })
 
-// route.post('/newTodo',function(req,res)
-// {
-  
-// })
+route.get('/:id/notes', async (req, res) => {
+  const notes = await Notes.findAll({
+    where:{
+      id:{ [Op.eq] :  req.params.id  }
+    }
+  })
+  res.send(notes)
+})
+
+route.post('/:id/notes', async (req, res) =>{
+
+  const note=await Notes.create({
+    id:req.params.id,
+    notes:req.body.notes
+  })
+
+  res.status(201).send({ success: 'New task added', data: note })
+})
+
 
 module.exports = route

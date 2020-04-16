@@ -9,10 +9,8 @@ app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
 app.use('/', express.static(__dirname + '/public'))
+
 app.use('/todos', todoRoute)
-
-app.post('/',todoRoute)
-
 
 db.sync()
   .then(() => {
