@@ -80,7 +80,7 @@
   },
   "devDependencies": {},
   "scripts": {
-    "start": "server.js"
+    "start": " node server.js"
   },
   "engines": {
     "node": "13.12.0",

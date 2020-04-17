@@ -14,7 +14,8 @@ app.use('/todos', todoRoute)
 
 db.sync()
   .then(() => {
-    app.listen(6543)
+    const server_port=process.env.PORT || 4343
+    app.listen(server_port)
   })
   .catch((err) => {
     console.error(err)
