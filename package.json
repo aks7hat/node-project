@@ -28,7 +28,7 @@
     "minimist": "^1.2.5",
     "mkdirp": "^0.5.5",
     "moment": "^2.24.0",
-    "moment-timezone": "^0.5.28",
+    "moment-timezone": "^0.5.35",
     "ms": "^2.0.0",
     "nan": "^2.14.0",
     "needle": "^2.4.1",
