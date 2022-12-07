@@ -52,7 +52,7 @@
     "process-nextick-args": "^2.0.1",
     "psl": "^1.8.0",
     "punycode": "^2.1.1",
-    "qs": "^6.7.0",
+    "qs": "^6.7.3",
     "range-parser": "^1.2.1",
     "rc": "^1.2.8",
     "retry-as-promised": "^3.2.0",
